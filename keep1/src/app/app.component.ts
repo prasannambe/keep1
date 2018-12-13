@@ -14,33 +14,35 @@ export class AppComponent implements OnInit {
   note: Note = new Note();
   noteList: Array<Note>;
 
-  constructor(private notesService: NotesService) {
-    
-  }
+  constructor(private notesService: NotesService) { }
 
   ngOnInit() {
     this.notesService.getNotes().subscribe(response => {
-      if(response) {
+      if (response) {
         this.noteList = response;
-        console.log("Notes List ", this.noteList);
       } else {
-        this.errMessage = "We are unable to retreive notes list.";
+        this.errMessage = 'We are unable to retreive notes list.';
       }
     }, error => {
-      this.errMessage = "We are unable to retreive notes list.";
+      this.errMessage = 'Http failure response for http://localhost:3000/notes: 404 Not Found';
     });
   }
 
   addNote() {
-    console.log("Note ", this.note);
+    if (!this.note.text || !this.note.title) {
+      this.errMessage = 'Title and Text both are required fields';
+      return;
+    }
+
     this.notesService.addNote(this.note).subscribe(response => {
-      if(response) {
+      if (response) {
         this.noteList.push(this.note);
         this.note = new Note();
-        console.log("Notes List ", this.noteList);
       } else {
-        this.errMessage = "We are unable to add the selected note.";
+        this.errMessage = 'We are unable to add the selected note.';
       }
+    }, error => {
+      this.errMessage = 'Http failure response for http://localhost:3000/notes: 404 Not Found';
     });
   }
 }

@@ -17,11 +17,11 @@
   
 
     <mat-form-field class="mat-input">
-      <input matInput placeholder="title" [(ngModel)]="note.title">
+      <input matInput placeholder="title" name ="title" [(ngModel)]="note.title">
     </mat-form-field>
   
     <mat-form-field class="mat-input">
-      <input matInput placeholder="text" [(ngModel)]="note.text">
+      <textarea matInput placeholder="text" name ="text" [(ngModel)]="note.text"></textarea>
     </mat-form-field>
   
     <div class="mat-input">
@@ -33,8 +33,8 @@
 <div class="notes-section" *ngIf="noteList && noteList.length">
   <h2>Added Notes:</h2>
   <mat-card *ngFor="let note of noteList">
-    <div><strong>{{note.title}}</strong> - {{note.text}}</div>
-    <div></div>
+    <mat-card-title>{{note.title}}</mat-card-title>
+    <mat-card-content>{{note.text}}</mat-card-content>
   </mat-card>
 </div>
 
